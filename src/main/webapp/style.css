@@ -1,0 +1,90 @@
+@charset "UTF-8";
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans KR', sans-serif; }
+
+body {
+    background-color: #eef5fb; /* 부드러운 하늘색 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+}
+
+.signup-card {
+    background-color: white;
+    width: 500px;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+h2 { text-align: center; margin-bottom: 10px; font-size: 24px; }
+.subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 30px; }
+
+.form-group { margin-bottom: 20px; }
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* 에러 메시지 스타일 */
+.error-msg {
+    color: #ff4d4f;
+    font-weight: normal;
+    font-size: 11px;
+    margin-left: 10px;
+    /* 초기에는 숨기거나 상황에 맞게 노출 */
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.input-with-btn, .email-group, .birth-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn-check {
+    width: 120px;
+    background-color: #00bfff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.btn-submit {
+    flex: 1;
+    background-color: #00bfff;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-cancel {
+    flex: 1;
+    background-color: #ffcc00; /* 노란색 취소 버튼 */
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}

@@ -33,7 +33,7 @@
 		// 서버에서 가져온다 : Get 방식으로
 		let  url  = '	https://apis.data.go.kr/6260000/fbusangmgtourinfo/getgmgtourinfo'
 		url      += '?ServiceKey=0f40a6b3cdb00560d494ea46919f6285c5c951afa7ce8474df579519826a27b5'
-		url      += '&numOfRows=10'		
+		url      += '&numOfRows=10'		        // 한페이지에 몇개의 자료를 조회
 		url      += '&pageNo=' + pageEl.value
 		url      += '&resultType=json'		
 		fetch( url )
