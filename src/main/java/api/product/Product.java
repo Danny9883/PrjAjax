@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/product")
-@MultipartConfig
+@MultipartConfig         // 파일도 포함해서 보낸다 -> 설정 추가
 public class Product extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -66,7 +66,8 @@ public class Product extends HttpServlet {
 		
 		map.put(name, language);
 		
-		System.out.println( name + " 이(가) 추가되었습니다.");
+		System.out.println( name + ", " + language + " 이(가) 추가되었습니다.");
+		System.out.println(map);
 		
 	}
 

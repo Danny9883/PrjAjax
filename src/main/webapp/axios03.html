@@ -26,6 +26,7 @@
 		const  languageEl  = document.querySelector('#language')
 		const  url       = 'http://localhost:8080/product'
 		
+		// 서버에 전달될 인자값 " post 방식의
 		const  formData  = new FormData()
 		formData.append("name",     nameEl.value)
 		formData.append("language", languageEl.value)
@@ -36,6 +37,7 @@
 					"content-type" : "multipart/form-data"
 				} 
 		}
+		// 서버에 @MultipartConfig  필수
 		
 		return axios.post(url, formData, config)
 	} // addProduct() END
@@ -67,7 +69,7 @@
 			url     : url,
 			method  : 'get',
 			params  : {
-				name  : name2El.value
+				name  : name2El.value     // ?name=안유진
 			}
 		})
 		.then( response => {
