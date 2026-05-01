@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>부산 맛집 정보</title>
+<style>
+	ul {
+		border: 2px solid cyan;
+		border-radius: 10px;
+		margin: 15px; 
+	}
+	
+	img { max-width: 80%; }
+	
+	li:first-child {
+		font-weight: 700;
+		font-size: 1.5rem;
+		margin-top: 15px;
+	}
+	
+	#prev { margin-left: 70px; }
+
+</style>
+</head>
+<body>
+	<h2>부산 맛집 정보 서비스</h2>
+	페이지 번호&nbsp;&nbsp;<input type="number" id="page" value="1" min="1"  />
+	<button id="get">맛집 조회</button>
+	<button id="prev">이전 페이지</button>
+	<button id="next">다음 페이지</button>
+	<div id="output"></div>
+	
+	
+<script>
+	const  pageEl    = document.querySelector('#page')
+	const  getbtnEl  = document.querySelector('#get')
+	const  nextbtnEl = document.querySelector('#next')
+	const  prevbtnEl = document.querySelector('#prev')
+	const  outputEl  = document.querySelector('#output')
+	
+	
+	
+	
+	
+	// getbutton 이 클릭되면
+	getbtnEl.addEventListener('click', getList )
+	
+	prevbtnEl.addEventListener('click', function() {
+		if (parseInt(pageEl.value) > 1 ) {
+			pageEl.value -= 1
+			getList()
+		} else {
+			alert('첫 페이지 입니다.')
+		}
+		
+	})
+	
+	nextbtnEl.addEventListener('click', function() {
+		pageEl.value = parseInt(pageEl.value) + 1
+		getList()
+	})
+	
+	function getList() {
+		let  url  = 'https://apis.data.go.kr/6260000/FoodService/getFoodKr'
+		url      += '?ServiceKey=0f40a6b3cdb00560d494ea46919f6285c5c951afa7ce8474df579519826a27b5'
+		url      += '&numOfRows=10'		        // 한페이지에 몇개의 자료를 조회
+		url      += '&pageNo=' + pageEl.value
+		url      += '&resultType=json'		
+		fetch( url )
+		.then( (response) => response.json() )
+		.then( (json)     =>  {
+			console.log( json )
+				
+			// outputEl.innerHTML  = JSON.stringify( json )
+			let itemList   = json.getFoodKr.item
+			let totalCount = parseInt(json.getFoodKr.totalCount)
+			let numOfRows  = parseInt(json.getFoodKr.numOfRows)
+			let maxpage    = Math.ceil(totalCount / numOfRows)
+			pageEl.max     = maxpage
+			if (parseInt(pageEl.value) > pageEl.max ) {
+				alert('마지막 페이지 입니다.')
+				pageEl.value = pageEl.max
+				return getList()
+			}
+			console.log(itemList)
+			
+			dataDisplay( itemList )
+			})
+			.catch( error => console.log( error ) )
+		}
+
+	
+	
+	function dataDisplay( itemList ) {
+		
+		let  html = ''
+		itemList.forEach( function( item, i ) { 
+			let imgurl = item.MAIN_IMG_NORMAL
+			
+			if (imgurl == null) 
+				imgurl = 'https://placehold.co/600x400' 
+			
+			html += `
+			<ul>
+				<li> ${item.MAIN_TITLE} </li><br>
+			`
+			if (item.MAIN_TITLE != item.TITLE)
+				html += `<li>제목     			: ${item.TITLE}</li><br>`
+				
+			html += `
+				<li>주소   		  	: ${item.ADDR1}</li><br>
+				<li>대표메뉴      : ${item.RPRSNTV_MENU}</li>
+				<li>상세내용      : ${item.ITEMCNTNTS}</li><br>
+				<li style="list-style : none"><img src="${imgurl}" /></li><br>
+				<li>연락처        : ${item.CNTCT_TEL}</li>
+				<li>운영 및 시간  : ${item.USAGE_DAY_WEEK_AND_TIME}</li><br>
+			</ul>
+			`
+			
+		})
+		
+		outputEl.innerHTML  = html
+		
+	} // dataDisplay END
+
+
+
+
+</script>
+</body>
+</html>
